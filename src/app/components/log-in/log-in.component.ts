@@ -33,12 +33,15 @@ export class LogInComponent implements OnInit {
 
   async onSubmit() {
     try {
-      await firstValueFrom(
+      const result: any = await firstValueFrom(
         await this.chatService.loginUser(
           this.loginForm.value.email,
           this.loginForm.value.password
         )
       );
+      if (result?.['data']?.['accessToken']) {
+        localStorage.setItem('token', result['data']['accessToken']);
+      }
       this.toaster.showSuccess('Successfully', 'Login');
     } catch (error) {
       console.log(error);

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { ChatService } from '../../services/chat-service/chat.service';
 import { ToasterService } from '../../services/toaster-service/toaster.service';
@@ -15,7 +16,8 @@ export class LogInComponent implements OnInit {
   constructor(
     private chatService: ChatService,
     private formBuilder: FormBuilder,
-    private toaster: ToasterService
+    private toaster: ToasterService,
+    private router: Router
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -41,6 +43,7 @@ export class LogInComponent implements OnInit {
       );
       if (result?.['data']?.['accessToken']) {
         localStorage.setItem('token', result['data']['accessToken']);
+        this.router.navigateByUrl('/chat-room');
       }
       this.toaster.showSuccess('Successfully', 'Login');
     } catch (error) {

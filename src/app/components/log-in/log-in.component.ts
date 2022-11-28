@@ -42,7 +42,7 @@ export class LogInComponent implements OnInit {
       this.toaster.showSuccess('Successfully', 'Login');
     } catch (error) {
       console.log(error);
-      this.toaster.showFaield('Failed to login , please try again', 'Error');
+      this.toaster.showFaield('Failed to login , Please try again', 'Error');
     }
   }
   ngOnInit(): void {}

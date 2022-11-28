@@ -25,28 +25,24 @@ export class ChatService {
     });
   }
 
-  loginUser(email: string, password:string) {
+  loginUser(email: string, password: string) {
     const body = new HttpParams({
       fromObject: {
         email,
-        password
+        password,
       },
     });
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
     });
-    
+
     return this.http.post(`${environment.API_URL}/user/login`, body, {
       headers,
     });
   }
 
-  resetPasswordUser(
-    activationCode: string,
-    newPassword: string,
-    confirmPassword: string
-  ) {
+  resetPasswordUser(activationCode: string, newPassword: string, confirmPassword:string) {
     const body = new HttpParams({
       fromObject: {
         activationCode,
@@ -54,10 +50,12 @@ export class ChatService {
         confirmPassword,
       },
     });
+ console.log("body=",body)
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+    });
 
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-    return this.http.post(`${environment.API_URL}/user/login`, body, {
+    return this.http.patch(`${environment.API_URL}/user/reset-password`, body, {
       headers,
     });
   }

@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
     } catch (error) {
       console.log(error);
       this.toaster.showFaield(
-        'Failed to create account , please try again',
+        'Failed to create account , Please try again',
         'Error'
       );
     }

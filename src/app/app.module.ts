@@ -24,6 +24,20 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 
 import { ToastrModule } from 'ngx-toastr';
 import { ChatRoomComponent } from './components/chat-room/chat-room.component';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { environment } from '../environments/environment';
+import { LogoutComponent } from './components/logout/logout.component';
+
+const config: SocketIoConfig = {
+	url: environment.SOCKET_Url, // socket server url;
+	options: {
+		transports: ['websocket','polling'],
+    auth: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }
+	}
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +45,7 @@ import { ChatRoomComponent } from './components/chat-room/chat-room.component';
     RegisterComponent,
     ResetPasswordComponent,
     ChatRoomComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +57,7 @@ import { ChatRoomComponent } from './components/chat-room/chat-room.component';
     FlexLayoutModule,
     HttpClientModule,
     ToastrModule.forRoot(),
+    SocketIoModule.forRoot(config), 
   ],
   providers: [],
   bootstrap: [AppComponent],

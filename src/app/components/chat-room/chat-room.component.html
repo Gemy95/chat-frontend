@@ -1,6 +1,27 @@
 
 <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
 
-    <p>chat-room works!</p>
+    <div class="box">
+        <ul *ngFor="let data of availableMessages; let i = index"> 
+            <li>
+               {{ data?.message }} : {{ data?.user?.name }} 
+            </li>
+          </ul>    
+    </div>
+
+    <div>
+
+        <mat-card class="box">
+          <form class="example-form" [formGroup]="sendForm" (ngSubmit)="onSubmit()" novalidate>
+            <mat-card-content>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="message" formControlName="message" type="message">
+              </mat-form-field>
+            </mat-card-content>
+            <button mat-stroked-button color="accent" class="btn-block">Send</button>
+          </form>
+        </mat-card>
+      
+      </div>
 
 </div>

@@ -2,8 +2,10 @@
 <mat-toolbar color="primary" class="app-header">
   <div><a target="_blank" class="positronx">Website</a></div>
   <span class="nav-tool-items">
-    <a mat-button routerLink="login" routerLinkActive="active">Log in</a>
-    <a mat-button mat-raised-button routerLink="register" routerLinkActive="active">Register</a>
+    <a *ngIf="!isAuth" mat-button routerLink="login" routerLinkActive="active">Log In</a>
+    <a *ngIf="!isAuth" mat-button mat-raised-button routerLink="register" routerLinkActive="active">Register</a>
+    <a *ngIf="isAuth" mat-button routerLink="login" routerLinkActive="active">Log Out</a>
+
   </span>
 </mat-toolbar>
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
+import { AuthService } from '../../services/auth-service/auth.service';
 import { ChatService } from '../../services/chat-service/chat.service';
 import { ToasterService } from '../../services/toaster-service/toaster.service';
 
@@ -17,8 +18,10 @@ export class LogInComponent implements OnInit {
     private chatService: ChatService,
     private formBuilder: FormBuilder,
     private toaster: ToasterService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
   ) {
+
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
@@ -43,7 +46,8 @@ export class LogInComponent implements OnInit {
       );
       if (result?.['data']?.['accessToken']) {
         localStorage.setItem('token', result['data']['accessToken']);
-        this.router.navigateByUrl('/chat-room');
+        this.authService.isAuth.next(true);
+        this.router.navigateByUrl('/chat-room')
       }
       this.toaster.showSuccess('Successfully', 'Login');
     } catch (error) {
@@ -51,5 +55,7 @@ export class LogInComponent implements OnInit {
       this.toaster.showFaield('Failed to login , Please try again', 'Error');
     }
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+  }
 }

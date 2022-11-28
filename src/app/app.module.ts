@@ -23,12 +23,14 @@ import { HttpClientModule } from  '@angular/common/http';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 import { ToastrModule } from 'ngx-toastr';
+import { ChatRoomComponent } from './components/chat-room/chat-room.component';
 @NgModule({
   declarations: [
     AppComponent,
     LogInComponent,
     RegisterComponent,
     ResetPasswordComponent,
+    ChatRoomComponent,
   ],
   imports: [
     BrowserModule,

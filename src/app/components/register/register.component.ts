@@ -15,7 +15,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private chatService: ChatService,
     private formBuilder: FormBuilder,
-    private toaster: ToasterService,
+    private toaster: ToasterService
   ) {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -32,16 +32,22 @@ export class RegisterComponent implements OnInit {
   }
 
   async onSubmit() {
-    try{
-    const result = await firstValueFrom( await this.chatService
-      .registerUser(this.registerForm.value.name, this.registerForm.value.email));
-      this.toaster.showSuccess("Successfully created","Account")
-    }catch(error){
-      console.log(error)
-      this.toaster.showFaield("Failed to create account , please try again","Error")
+    try {
+      await firstValueFrom(
+        await this.chatService.registerUser(
+          this.registerForm.value.name,
+          this.registerForm.value.email
+        )
+      );
+      this.toaster.showSuccess('Successfully created', 'Account');
+    } catch (error) {
+      console.log(error);
+      this.toaster.showFaield(
+        'Failed to create account , please try again',
+        'Error'
+      );
     }
   }
-
 
   ngOnInit() {}
 }

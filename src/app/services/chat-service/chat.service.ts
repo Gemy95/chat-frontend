@@ -25,16 +25,18 @@ export class ChatService {
     });
   }
 
-  loginUser() {
+  loginUser(email: string, password:string) {
     const body = new HttpParams({
       fromObject: {
-        Name: 'name',
-        Email: 'email',
+        email,
+        password
       },
     });
 
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+    });
+    
     return this.http.post(`${environment.API_URL}/user/login`, body, {
       headers,
     });

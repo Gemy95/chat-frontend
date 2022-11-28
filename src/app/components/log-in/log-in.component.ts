@@ -45,9 +45,8 @@ export class LogInComponent implements OnInit {
         )
       );
       if (result?.['data']?.['accessToken']) {
-        localStorage.setItem('token', result['data']['accessToken']);
-        this.authService.isAuth.next(true);
         this.router.navigateByUrl('/chat-room')
+        this.authService.login(result['data']['accessToken']);
       }
       this.toaster.showSuccess('Successfully', 'Login');
     } catch (error) {

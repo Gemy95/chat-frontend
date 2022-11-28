@@ -11,10 +11,10 @@ const routes: Routes = [
   // { path: '', pathMatch: 'full', redirectTo: 'login' },
   { path: '', redirectTo: "/login", pathMatch: 'full' },  
   { path: 'login', component: LogInComponent },
+  { path: 'logout', component: LogoutComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'chat-room', component: ChatRoomComponent, canActivate:[AuthenticationGuard] },
-  { path: 'logout', component: LogoutComponent },
 
 ];
 

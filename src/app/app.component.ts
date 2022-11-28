@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { AuthService } from './services/auth-service/auth.service';
 
 @Component({
@@ -8,22 +9,12 @@ import { AuthService } from './services/auth-service/auth.service';
 })
 export class AppComponent implements OnInit {
   title = 'angular-app';
-  isAuth: boolean = false;
+  isLoggedIn : Observable<boolean>;
 
-  constructor(private authService: AuthService) {
-    const token = localStorage.getItem('token');
-    console.log('token=', token);
-    if (!token || token == '') {
-      console.log('here1');
-      this.authService.isAuth.next(false);
-    } else {
-      this.authService.isAuth.next(true);
-    }
+  constructor(public authService: AuthService) {
+    this.isLoggedIn = authService.isLoggedIn();
   }
 
   ngOnInit(): void {
-    this.authService.isAuth.subscribe((data) => {
-      this.isAuth = data;
-    });
   }
 }

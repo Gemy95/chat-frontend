@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Route, Router } from '@angular/router';
 import { AuthService } from '../../services/auth-service/auth.service';
 
 @Component({
@@ -8,10 +8,12 @@ import { AuthService } from '../../services/auth-service/auth.service';
   styleUrls: ['./logout.component.css'],
 })
 export class LogoutComponent implements OnInit {
-  constructor( private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {
+    this.authService.logout();
+  }
 
   ngOnInit(): void {
-    localStorage.removeItem('token');
-    this.authService.isAuth.next(false);
+
+    this.router.navigateByUrl('/login');
   }
 }

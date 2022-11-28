@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { ChatService } from '../../services/chat-service/chat.service';
 import { ToasterService } from '../../services/toaster-service/toaster.service';
@@ -18,7 +18,8 @@ export class ResetPasswordComponent implements OnInit {
     private chatService: ChatService,
     private formBuilder: FormBuilder,
     private toaster: ToasterService,
-    private router:Router
+    private router:Router,
+    private activatedRoute: ActivatedRoute
   ) {
     this.resetPasswordForm = this.formBuilder.group({
       activationCode: ['', [Validators.required]],
@@ -57,6 +58,11 @@ export class ResetPasswordComponent implements OnInit {
     }
   }
   ngOnInit(): void {
+    this.activatedRoute.queryParams
+      .subscribe(params => {
+        this.resetPasswordForm.patchValue({activationCode:params?.['code']});
+      }
+    );
   }
 
 }

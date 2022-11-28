@@ -22,6 +22,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { HttpClientModule } from  '@angular/common/http';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +39,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     FormsModule,
     FlexLayoutModule,
     HttpClientModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
 export class ChatService {
   constructor(private http: HttpClient) {}
 
-  registerUser(name: string, email:string) {
+  registerUser(name: string, email: string) {
     const body = new HttpParams({
       fromObject: {
         name,
@@ -16,7 +16,9 @@ export class ChatService {
       },
     });
 
-    const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+    });
 
     return this.http.post(`${environment.API_URL}/user/register`, body, {
       headers,
@@ -38,12 +40,16 @@ export class ChatService {
     });
   }
 
-  resetPasswordUser() {
+  resetPasswordUser(
+    activationCode: string,
+    newPassword: string,
+    confirmPassword: string
+  ) {
     const body = new HttpParams({
       fromObject: {
-        activationCode: 'name',
-        newPassword: 'email',
-        confirmPassword: 'aaa',
+        activationCode,
+        newPassword,
+        confirmPassword,
       },
     });
 

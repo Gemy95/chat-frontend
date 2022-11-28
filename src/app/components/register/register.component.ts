@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChatService } from '../../services/chat.service';
+import { ChatService } from '../../services/chat-service/chat.service';
+import { firstValueFrom } from 'rxjs';
+import { ToasterService } from '../../services/toaster-service/toaster.service';
 
 @Component({
   selector: 'app-register',
@@ -12,14 +14,14 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private chatService: ChatService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toaster: ToasterService,
   ) {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       name: ['', [Validators.required]],
     });
   }
-  
 
   get email() {
     return this.registerForm.get('email');
@@ -30,12 +32,16 @@ export class RegisterComponent implements OnInit {
   }
 
   async onSubmit() {
-   await this.chatService.registerUser(this.registerForm.value.name, this.registerForm.value.email).subscribe((data)=>{
-     console.log(data)
-   },(error)=>{
-    console.log("error1",error);
-   })
+    try{
+    const result = await firstValueFrom( await this.chatService
+      .registerUser(this.registerForm.value.name, this.registerForm.value.email));
+      this.toaster.showSuccess("Successfully created","Account")
+    }catch(error){
+      console.log(error)
+      this.toaster.showFaield("Failed to create account , please try again","Error")
+    }
   }
- 
+
+
   ngOnInit() {}
 }

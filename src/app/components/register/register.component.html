@@ -4,7 +4,7 @@
       <mat-card-title>Register</mat-card-title>
     </mat-card-header>
 
-    <form class="example-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+    <form class="example-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
       <mat-card-content>
         <mat-form-field class="example-full-width">
@@ -17,7 +17,7 @@
 
       </mat-card-content>
 
-      <button mat-stroked-button color="accent" class="btn-block">Register</button>
+      <button mat-stroked-button color="accent" class="btn-block" type="submit" [disabled]="!registerForm.valid">Register</button>
 
     </form>
   </mat-card>

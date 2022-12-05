@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChatService } from '../../services/chat-service/chat.service';
 import { firstValueFrom } from 'rxjs';
 import { ToasterService } from '../../services/toaster-service/toaster.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private chatService: ChatService,
     private formBuilder: FormBuilder,
-    private toaster: ToasterService
+    private toaster: ToasterService,
+    private router: Router,
   ) {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -39,7 +41,8 @@ export class RegisterComponent implements OnInit {
           this.registerForm.value.email
         )
       );
-      this.toaster.showSuccess('Successfully created', 'Account');
+      this.toaster.showSuccess('Successfully created , please check your email', 'Account');
+      this.router.navigate(['/login']);
     } catch (error) {
       console.log(error);
       this.toaster.showFaield(

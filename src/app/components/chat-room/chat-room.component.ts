@@ -43,7 +43,9 @@ export class ChatRoomComponent  implements OnInit {
 	  this.availableMessages = await this.socket.onAvailableMessage();
 
     await this.socket.onNewMessage().then((newMessgage)=>{
-       this.availableMessages.push(newMessgage);
+      console.log("newMessgage=",newMessgage)
+      this.availableMessages.shift();
+      this.availableMessages.push(newMessgage);
     });
 
 	}

@@ -3,7 +3,8 @@
     <div class="box">
         <ul *ngFor="let data of availableMessages; let i = index"> 
             <li>
-               {{ data?.message }} : {{ data?.user?.name }} 
+              {{ data?.user?.name }} ->  &nbsp; &nbsp; &nbsp; &nbsp; {{ data?.message }}
+               &nbsp; &nbsp; &nbsp; &nbsp; : {{data?.createdAt | date: 'dd/MM/yyyy HH:mm:ss'}}
             </li>
           </ul>    
     </div>

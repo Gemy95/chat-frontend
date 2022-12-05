@@ -35,7 +35,7 @@ export class ChatRoomComponent  implements OnInit {
       this.toaster.showSuccess('Successfully', 'Send message');
       const user = await this.authService.decodeToken();
       if(this?.availableMessages?.length > 10) this.availableMessages.shift();
-      this.availableMessages.push({message: this.sendForm.value.message, user});
+      this.availableMessages.push({message: this.sendForm.value.message, createdAt: new Date(), user});
       this.sendForm.reset();
     } catch (error) {
       console.log(error);
@@ -47,6 +47,8 @@ export class ChatRoomComponent  implements OnInit {
 
     await this.socket.joinRoom();
 	  this.availableMessages = await this.socket.onAvailableMessage();
+
+console.log("this.availableMessages=",this.availableMessages);
 
      (await this.socket.onNewMessage()).subscribe((newMessgage)=>{
         this.availableMessages.shift();

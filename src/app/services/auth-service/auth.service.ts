@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root',
@@ -37,5 +38,10 @@ export class AuthService {
    */
   private hasToken(): boolean {
     return !!localStorage.getItem('token');
+  }
+
+  decodeToken(): any {
+    const helper = new JwtHelperService();
+    return helper.decodeToken(localStorage.getItem('token')!);
   }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, lastValueFrom } from 'rxjs';
+import { AuthService } from '../auth-service/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ export class WebsocketService {
 
   // emit event
   joinRoom() {
-    this.socket.emit('join', { roomId: 'REDIS_USERS_CHAT_ROOM' });
+    this.socket.emit('join', { roomId: 'CHAT_ROOM' });
   }
   // emit event
   sendMessage(message: string) {
@@ -19,10 +20,7 @@ export class WebsocketService {
 
   // listen event
   async onNewMessage() {
-    const data = await firstValueFrom(
-      await this.socket.fromEvent('new-message')
-    );
-    return data;
+    return this.socket.fromEvent('new-message');
   }
   
   // listen event

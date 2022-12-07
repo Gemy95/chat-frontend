@@ -48,10 +48,8 @@ export class ChatRoomComponent  implements OnInit {
     await this.socket.joinRoom();
 	  this.availableMessages = await this.socket.onAvailableMessage();
 
-console.log("this.availableMessages=",this.availableMessages);
-
      (await this.socket.onNewMessage()).subscribe((newMessgage)=>{
-        this.availableMessages.shift();
+      this.availableMessages.shift();
         this.availableMessages.push(newMessgage);
       });
 	}

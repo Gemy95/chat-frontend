@@ -45,8 +45,10 @@ export class LogInComponent implements OnInit {
         )
       );
       if (result?.['data']?.['accessToken']) {
-        this.router.navigateByUrl('/chat-room')
         this.authService.login(result['data']['accessToken']);
+        this.router.navigateByUrl('/chat-room').then(()=>{
+          window.location.reload();
+        });
       }
       this.toaster.showSuccess('Successfully', 'Login');
     } catch (error) {

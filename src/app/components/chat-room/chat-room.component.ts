@@ -46,10 +46,12 @@ export class ChatRoomComponent  implements OnInit {
   async ngOnInit() {
 
     await this.socket.joinRoom();
-	  this.availableMessages = await this.socket.onAvailableMessage();
+	   (await this.socket.onAvailableMessage()).subscribe((messages)=>{
+        this.availableMessages= messages;
+      });
 
      (await this.socket.onNewMessage()).subscribe((newMessgage)=>{
-      this.availableMessages.shift();
+      if(this?.availableMessages?.length > 10) this.availableMessages.shift();
         this.availableMessages.push(newMessgage);
       });
 	}

@@ -25,9 +25,6 @@ export class WebsocketService {
   
   // listen event
   async onAvailableMessage() {
-    const data = await firstValueFrom(
-      await this.socket.fromEvent('available-messages')
-    );
-    return data;
+      return this.socket.fromEvent('available-messages')
   }
 }
